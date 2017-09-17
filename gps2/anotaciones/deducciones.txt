@@ -1,6 +1,6 @@
 GPS
 
-El primer problema que hubo que que estaba mal conectado el GPS al Arduino. Se estaba conectando Tx con Tx, cuando en realidad es 
+El primer problema que hubo es que estaba mal conectado el GPS al Arduino. Se estaba conectando Tx con Tx, cuando en realidad es 
 Tx con Rx (GPS vs Arduino). En otros modelos de Arduino, como el Uno, se debe crear una comunicacion serial, mediante un objeto en C++
 y despues recien operar. Ver http://www.naylampmechatronics.com/blog/18_Tutorial-M%C3%B3dulo-GPS-con-Arduino.html
 Para Arduino Mega, esto es totalmente transparente, ya que contiene pines especializados para transferencia y recepcion, por lo que basta con
