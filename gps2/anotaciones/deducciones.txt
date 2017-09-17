@@ -1,0 +1,42 @@
+GPS
+
+El primer problema que hubo que que estaba mal conectado el GPS al Arduino. Se estaba conectando Tx con Tx, cuando en realidad es 
+Tx con Rx (GPS vs Arduino). En otros modelos de Arduino, como el Uno, se debe crear una comunicacion serial, mediante un objeto en C++
+y despues recien operar. Ver http://www.naylampmechatronics.com/blog/18_Tutorial-M%C3%B3dulo-GPS-con-Arduino.html
+Para Arduino Mega, esto es totalmente transparente, ya que contiene pines especializados para transferencia y recepcion, por lo que basta con
+utilizar los objetos Serial1 y Serial. 
+Serial1 recoge los datos y Serial los transmite a la pc. 
+El voltage y la velocidad de transferencia estan documentadas en el datasheet. La misma esta definida en Baudios. Como los niveles de una trama
+en binario son 2, en este caso coincide la velocidad de transferencia de bits con la velocidad de comunicacion en baudios (1 baudio = 1 bit).
+En otros casos como en la comunicacion con modems, estos usan mas niveles en sus tramas, asi, la velocidad en baudios es distinta a la velocidad
+de transmision. VER https://es.wikipedia.org/wiki/Baudio y revisar apuntes de FOTI
+
+Por ultimo, una vez terminada la programación, surgio un inconveniente obvio, pero no contemplado en los inicios del proyecto. Ocurrio que 
+la señal recibida no era suficiente, por lo que los datos arrojados por el GPS son erroneos, pero aun asi indica la invalidez de los mismos con 
+V. VER http://www.naylampmechatronics.com/blog/18_Tutorial-M%C3%B3dulo-GPS-con-Arduino.html y googlear el protocolo que describe.
+
+Los datos que se recogen son los siguientes: 
+
+$GPRMC,,V,,,,,,,,,,N*53
+$GPVTG,,,,,,,,,N*30
+$GPGGA,,,,,,0,00,99.99,,,,,,*48
+$GPGSA,A,1,,,,,,,,,,,,,99.99,99.99,99.99*30
+$GPGSV,1,1,00*79
+$GPGLL,,,,,,V,N*64
+
+Esto  lleva a la siguiente problematica:
+
+Como hacemos para definir la posicion si ocurre este problema?
+
+psibles soluciones:
+
+-localizacion por internet
+-configuracion de longitud y latitud de forma manual, de manera de utilizarla si falla el GPS.
+
+
+El pin PPS envia un pulso de un segundo de duracion. Indica si el GPS tiene datos para emitir. Si tiene datos, entonces esta 900 ms en alto
+y 100 ms en bajo. VER http://geekistuff.blogspot.com.ar/2014/06/advance-u-blox-neo-6m-gps-module.html
+
+
+
+
