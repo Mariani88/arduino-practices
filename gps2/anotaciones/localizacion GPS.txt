@@ -19,3 +19,6 @@ Hora: 20:31:52
 
 Latitud: 34° 33.25041' S
 Longitud:  58° 36.58012' W
+
+
+http://www.gpsinformation.org/dale/nmea.htm#nmea
