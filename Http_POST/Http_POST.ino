@@ -3,6 +3,7 @@
  This sketch connects to google website using an ESP8266 module to
  perform a simple web search.
  For more details see: http://yaab-arduino.blogspot.com/p/wifiesp-example-client.html
+ Resolve make request problem https://stackoverflow.com/questions/37883865/sending-http-post-request-using-esp8266wifi-library
 */
 
 #include "WiFiEsp.h"
