@@ -49,13 +49,13 @@ void setup()
   Serial.println();
   Serial.println("Starting connection to server...");
   // if you get a connection, report back via serial
-  if (client.connect("192.168.1.3", 8080)) {
+  if (client.connect("192.168.1.7", 8080)) {
     Serial.println("Connected to server");
     // Make a HTTP request
 
   String content = "{\"alarm\": \"warning\"}";
     client.print(String("POST ") + "/alert"  + " HTTP/1.1\r\n" +
-                 "Host: " + "192.168.1.3:8080" + "\r\n" +
+                 "Host: " + "192.168.1.7:8080" + "\r\n" +
                  //"Connection: close\r\n" +
                  "Content-Type: application/json\r\n" +
                  "Content-Length: " + content.length() + "\r\n" +
@@ -80,17 +80,23 @@ void setup()
     client.println(content);
     client.println();*/
     Serial.println(content);
-    delay(100);
+  
   }
 }
 
 void loop()
 {
+  int waitcount = 0;
+  while (!client.available() && waitcount++ < 10000) {
+     delay(10);
+  }
+
+  
   // if there are incoming bytes available
   // from the server, read them and print them
   while (client.available()) {
-    char c = client.read();
-    Serial.write(c);
+    String line = client.readStringUntil('\r');
+    Serial.println(line);
   }
 
   // if the server's disconnected, stop the client
