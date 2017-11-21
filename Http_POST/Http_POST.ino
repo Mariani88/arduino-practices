@@ -1,8 +1,4 @@
 /*
- WiFiEsp example: WebClient
- This sketch connects to google website using an ESP8266 module to
- perform a simple web search.
- For more details see: http://yaab-arduino.blogspot.com/p/wifiesp-example-client.html
  Resolve make request problem https://stackoverflow.com/questions/37883865/sending-http-post-request-using-esp8266wifi-library
 */
 
@@ -56,41 +52,21 @@ void setup()
   String content = "{\"alarm\": \"warning\"}";
     client.print(String("POST ") + "/alert"  + " HTTP/1.1\r\n" +
                  "Host: " + "192.168.1.7:8080" + "\r\n" +
-                 //"Connection: close\r\n" +
                  "Content-Type: application/json\r\n" +
                  "Content-Length: " + content.length() + "\r\n" +
                  "\r\n" + // This is the extra CR+LF pair to signify the start of a body
                  content + "\n");
-
-
-
-    //client.println("Accept: */*");
-
-    
-   /* String content = "{\"alarm\": \"warning\"}";
-    client.println("POST /alert HTTP/1.1");
-    client.println("Host:192.168.1.3:8080");
-    client.println("User-Agent: Arduino/1.0");
-    //client.println("Connection: close");
-    
-    client.println("Content-Type: application/json");
-    client.println("charset:UTF-8");
-    client.println("Content-Length: " + content.length());
-    client.println();
-    client.println(content);
-    client.println();*/
     Serial.println(content);
-  
   }
 }
 
 void loop()
 {
+  //wait to receive data
   int waitcount = 0;
   while (!client.available() && waitcount++ < 10000) {
      delay(10);
   }
-
   
   // if there are incoming bytes available
   // from the server, read them and print them
@@ -109,7 +85,6 @@ void loop()
     while (true);
   }
 }
-
 
 void printWifiStatus()
 {
